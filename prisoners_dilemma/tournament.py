@@ -4,9 +4,9 @@
 from collections import defaultdict
 from itertools import combinations
 
-import strategies
-from play import play_game
-from print_table import convert_to_table, sort_by_value
+from prisoners_dilemma import strategies
+from prisoners_dilemma.play import play_game
+from prisoners_dilemma.print_table import convert_to_table, sort_by_value
 
 TOTAL_SCORES = defaultdict(int)
 
