@@ -20,7 +20,6 @@ def convert_to_table(dictionary, heading_1, heading_2):
     # Print table header
     left_align = 15
     right_align = 5
-    width = left_align + right_align + 3
 
     # Add table header
     rows = []
@@ -28,7 +27,7 @@ def convert_to_table(dictionary, heading_1, heading_2):
         f'{heading_1:<{left_align}} | {heading_2:>{right_align}}'
     )
     rows.append(header)
-    rows.append(__to_markdown_row('-' * width))
+    rows.append(__to_markdown_row(f'{"-" * left_align} | {"-" * right_align}'))
 
     # Add table rows
     for strategy, score in dictionary:
