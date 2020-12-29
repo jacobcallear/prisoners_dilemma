@@ -19,6 +19,8 @@ with the following payoffs:
 
 ## Results
 
+With all strategies in the tournament:
+
 | Strategy             | Score |
 | -------------------- | ----- |
 | HelpTheHelpers       |  6391 |
@@ -31,3 +33,14 @@ with the following payoffs:
 | Random               |  4424 |
 | AlwaysDefect         |  4232 |
 | TatForTit            |  4204 |
+
+With the worst four strategies removed, the results are very different:
+
+| Strategy             | Score |
+| -------------------- | ----- |
+| TitForTat            |  4199 |
+| TitForTatPatterns    |  4199 |
+| SneakyTitForTat      |  4064 |
+| TitForTwoTats        |  3999 |
+| HelpTheHelpers       |  3999 |
+| Unforgiving          |  3807 |
