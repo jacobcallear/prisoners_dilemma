@@ -21,11 +21,11 @@ with the following payoffs:
 
 | Strategy        | Score |
 | --------------- | ----- |
-| TitForTat       |  4881 |
-| Unforgiving     |  4615 |
-| TitForTwoTats   |  4568 |
-| HelpTheHelpers  |  4561 |
-| SneakyTitForTat |  4304 |
-| AlwaysCooperate |  4290 |
-| Random          |  3568 |
-| AlwaysDefect    |  3076 |
+| TitForTat       |  4852 |
+| SneakyTitForTat |  4850 |
+| HelpTheHelpers  |  4794 |
+| Unforgiving     |  4635 |
+| TitForTwoTats   |  4562 |
+| AlwaysCooperate |  4302 |
+| Random          |  3544 |
+| AlwaysDefect    |  3044 |
