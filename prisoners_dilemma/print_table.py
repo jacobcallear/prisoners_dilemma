@@ -17,7 +17,7 @@ def __to_markdown_row(text):
 def convert_to_table(dictionary, heading_1, heading_2):
     '''Converts a dictionary to a table-like string.'''
     # Print table header
-    left_align = 15
+    left_align = 20
     right_align = 5
 
     # Add table header
@@ -30,5 +30,7 @@ def convert_to_table(dictionary, heading_1, heading_2):
 
     # Add table rows
     for strategy, score in dictionary:
-        rows.append(__to_markdown_row(f'{strategy:<15} | {score:>5}'))
+        rows.append(__to_markdown_row(
+            f'{strategy:<{left_align}} | {score:>{right_align}}'
+        ))
     return '\n'.join(rows)

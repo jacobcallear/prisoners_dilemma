@@ -108,7 +108,7 @@ class HelpTheHelpers(Strategy):
         super().__init__()
         self.count_helps = 0
         self.count_betrayals = 0
-    
+
     def __increment_betrayals(self):
         '''Record if cooperations are reciprocated.'''
         if len(self.my_history) < 2:
@@ -129,3 +129,37 @@ class HelpTheHelpers(Strategy):
         if self.count_helps / self.count_betrayals > 0.6:
             return 'COOPERATE'
         return 'DEFECT'
+
+
+class TatForTit(Strategy):
+    '''Cooperates with defectors, and defects with cooperators.
+    '''
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        if self.their_history[-1] == 'COOPERATE':
+            return 'DEFECT'
+        return 'COOPERATE'
+
+
+class TitForTatPatterns(Strategy):
+    '''Tries to respond to patterns in opponent. Otherwise TitForTat.'''
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        # See if defecting every 3, 4, or 5 goes
+        consecutive = 0
+        pattern = False
+        for num in range(3, 6):
+            for i in range(len(self.their_history) - 1, 0, -num):
+                if consecutive >= 3:
+                    pattern = True
+                    break
+                if self.their_history[i] == 'DEFECT':
+                    consecutive += 1
+                else:
+                    consecutive = 0
+        if pattern:
+            if (len(self.my_history) + 1) % num == 0:
+                return 'DEFECT'
+        return self.their_history[-1]
