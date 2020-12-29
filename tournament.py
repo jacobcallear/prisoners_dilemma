@@ -1,3 +1,6 @@
+'''Plays each Prisoner's Dilemma strategy against all the others to find the winner.
+'''
+
 from itertools import combinations
 
 import strategies

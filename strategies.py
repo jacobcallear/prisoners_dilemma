@@ -1,5 +1,9 @@
+'''Defines strategies for Prisoner's Dilemma.
+'''
+
+
 class Strategy:
-    '''Parent class for each strategy.
+    '''Parent class for each strategy. Keeps track of both player's history.
 
     Subclasses must add a `play` method that returns 'COOPERATE' or 'DEFECT'.
     '''
@@ -37,6 +41,7 @@ class AlwaysCooperate(Strategy):
     def play():
         return 'COOPERATE'
 
+
 class TitForTwoTats(Strategy):
     '''Nice, forgiving, less punishing than TitForTat.'''
     def play(self):
@@ -45,6 +50,7 @@ class TitForTwoTats(Strategy):
         if self.their_history[-2:] == ['DEFECT', 'DEFECT']:
             return 'DEFECT'
         return 'COOPERATE'
+
 
 class SneakyTitForTat(Strategy):
     '''Strategy to exploit TitForTwoTats.
