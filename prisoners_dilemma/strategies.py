@@ -84,6 +84,7 @@ class Random(Strategy):
     def play():
         return choice(['COOPERATE', 'DEFECT'])
 
+
 class Unforgiving(Strategy):
     '''Cooperates first move. Defects forever if opponent defects.'''
     def __init__(self):
@@ -99,6 +100,7 @@ class Unforgiving(Strategy):
             return 'DEFECT'
         return 'COOPERATE'
 
+
 class HelpTheHelpers(Strategy):
     '''Cooperates with players that reciprocate cooperation.
     '''
@@ -106,7 +108,7 @@ class HelpTheHelpers(Strategy):
         super().__init__()
         self.count_helps = 0
         self.count_betrayals = 0
-    
+
     def play(self):
         if self.my_history == []:
             return 'COOPERATE'

@@ -1,5 +1,4 @@
 '''Sort `defaultdict` and print in markdown table format.'''
-from textwrap import dedent
 
 
 def sort_by_value(dictionary):
