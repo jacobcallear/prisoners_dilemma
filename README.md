@@ -50,3 +50,18 @@ With the worst four strategies removed, the results are very different:
 | HelpTheHelpers       |  5799 |
 | Unforgiving          |  5607 |
 | SneakyTitForTat      |  5564 |
+
+## Winning strategies
+
+The tournament can be rerun repeatedly, dropping the lowest scoring strategy,
+until all strategies have the same high score. This always results in the same
+five winners which cooperate in every round of every game:
+
+- `TitForTat`
+- `TitForTatPatterns`
+- `Equality`
+- `ForgivingTitForTat`
+- `GoByMajority`
+
+`TitForTat` has the fewest lines of code of the winners, and so is declared th
+winner (so far).
