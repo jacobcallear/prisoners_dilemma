@@ -19,6 +19,7 @@ STRATEGIES_LIST = [
     strategies.Unforgiving,
     strategies.Equality,
     strategies.ForgivingTitForTat,
+    strategies.GoByMajority,
     # These four strategies are always the worst, well below the others
     strategies.AlwaysCooperate,
     strategies.AlwaysDefect,

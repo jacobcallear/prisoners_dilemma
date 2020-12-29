@@ -21,30 +21,31 @@ with the following payoffs:
 
 With all strategies in the tournament:
 
-| Strategy             | Score |
 | -------------------- | ----- |
-| HelpTheHelpers       |  7595 |
-| Unforgiving          |  7420 |
-| TitForTatPatterns    |  7140 |
-| TitForTat            |  7116 |
-| ForgivingTitForTat   |  7013 |
-| SneakyTitForTat      |  6911 |
-| TitForTwoTats        |  6756 |
-| Equality             |  6625 |
-| AlwaysCooperate      |  6105 |
-| TatForTit            |  5312 |
-| Random               |  5304 |
-| AlwaysDefect         |  5228 |
+| HelpTheHelpers       |  8078 |
+| Unforgiving          |  7972 |
+| TitForTat            |  7725 |
+| TitForTatPatterns    |  7710 |
+| GoByMajority         |  7594 |
+| ForgivingTitForTat   |  7568 |
+| SneakyTitForTat      |  7407 |
+| TitForTwoTats        |  7339 |
+| Equality             |  7237 |
+| AlwaysCooperate      |  6732 |
+| Random               |  6072 |
+| TatForTit            |  5731 |
+| AlwaysDefect         |  5444 |
 
 With the worst four strategies removed, the results are very different:
 
 | Strategy             | Score |
 | -------------------- | ----- |
-| TitForTat            |  5399 |
-| TitForTatPatterns    |  5399 |
-| ForgivingTitForTat   |  5399 |
-| Equality             |  5201 |
-| TitForTwoTats        |  5199 |
-| HelpTheHelpers       |  5199 |
-| SneakyTitForTat      |  5064 |
-| Unforgiving          |  5007 |
+| TitForTat            |  5999 |
+| TitForTatPatterns    |  5999 |
+| ForgivingTitForTat   |  5999 |
+| GoByMajority         |  5900 |
+| Equality             |  5801 |
+| TitForTwoTats        |  5799 |
+| HelpTheHelpers       |  5799 |
+| Unforgiving          |  5607 |
+| SneakyTitForTat      |  5564 |

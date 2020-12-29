@@ -202,3 +202,22 @@ class ForgivingTitForTat(Strategy):
             if random() >= 0.25:
                 return 'DEFECT'
             return 'COOPERATE'
+
+class GoByMajority(Strategy):
+    '''Cooperates if opponent mostly cooperates. Otherwise defects.
+    '''
+    def __init__(self):
+        super().__init__()
+        self.cooperate_count = 0
+        self.defect_count = 0
+
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        if self.their_history[-1] == 'COOPERATE':
+            self.cooperate_count += 1
+        else:
+            self.defect_count += 1
+        if self.cooperate_count > self.defect_count:
+            return 'COOPERATE'
+        return 'DEFECT'
