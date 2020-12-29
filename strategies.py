@@ -56,7 +56,7 @@ class TitForTwoTats(Strategy):
 
 class SneakyTitForTat(Strategy):
     '''Strategy to exploit TitForTwoTats.
-    
+
     - Defect first move
     - Play tit for tat if opponent defects
     - Otherwise defect every third move
@@ -83,3 +83,18 @@ class Random(Strategy):
     @staticmethod
     def play():
         return choice(['COOPERATE', 'DEFECT'])
+
+class Unforgiving(Strategy):
+    '''Cooperates first move. Defects forever if opponent defects.'''
+    def __init__(self):
+        super().__init__()
+        self.always_defect = False
+
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        if self.their_history[-1] == 'DEFECT':
+            self.always_defect = True
+        if self.always_defect:
+            return 'DEFECT'
+        return 'COOPERATE'
