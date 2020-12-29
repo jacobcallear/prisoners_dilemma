@@ -19,13 +19,15 @@ with the following payoffs:
 
 ## Results
 
-| Strategy        | Score |
-| --------------- | ----- |
-| TitForTat       |  4852 |
-| SneakyTitForTat |  4850 |
-| HelpTheHelpers  |  4794 |
-| Unforgiving     |  4635 |
-| TitForTwoTats   |  4562 |
-| AlwaysCooperate |  4302 |
-| Random          |  3544 |
-| AlwaysDefect    |  3044 |
+| Strategy             | Score |
+| -------------------- | ----- |
+| HelpTheHelpers       |  6391 |
+| Unforgiving          |  6120 |
+| TitForTatPatterns    |  5926 |
+| TitForTat            |  5913 |
+| SneakyTitForTat      |  5896 |
+| TitForTwoTats        |  5534 |
+| AlwaysCooperate      |  4911 |
+| Random               |  4424 |
+| AlwaysDefect         |  4232 |
+| TatForTit            |  4204 |
