@@ -21,6 +21,7 @@ with the following payoffs:
 
 With all strategies in the tournament:
 
+| Strategy             | Score |
 | -------------------- | ----- |
 | HelpTheHelpers       |  8078 |
 | Unforgiving          |  7972 |
