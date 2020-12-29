@@ -54,5 +54,5 @@ def play_game(strategy_1, strategy_2, counter, rounds=200):
         str(strategy_1()): scores[0],
         str(strategy_2()): scores[1]
     }
-    logging.debug(scores_dict)
+    logging.info(scores_dict)
     return scores_dict
