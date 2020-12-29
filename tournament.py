@@ -1,12 +1,15 @@
 '''Plays each Prisoner's Dilemma strategy against all the others to find the winner.
 '''
 
+from collections import defaultdict
 from itertools import combinations
 
 import strategies
 from play import play_game
 
-strategies_list = [
+TOTAL_SCORES = defaultdict(int)
+
+STRATEGIES_LIST = [
     strategies.AlwaysCooperate,
     strategies.AlwaysDefect,
     strategies.SneakyTitForTat,
@@ -14,6 +17,43 @@ strategies_list = [
     strategies.TitForTwoTats,
     strategies.Random
 ]
-for strategy_1, strategy_2 in combinations(strategies_list, 2):
+
+
+def play_game_and_add_to_total(strategy_1, strategy_2):
+    '''Play strategy 1 against strategy 2. Print scores and add to total.'''
     scores = play_game(strategy_1(), strategy_2())
-    print(scores)
+    print(f'{str(strategy_1())}: {scores[0]}, '
+          f'{str(strategy_2())}: {scores[1]}')
+    for strategy, score in zip((strategy_1(), strategy_2()), scores):
+        TOTAL_SCORES[str(strategy)] += score
+
+
+# Play all combinations of strategies
+for strategy_1, strategy_2 in combinations(STRATEGIES_LIST, 2):
+    play_game_and_add_to_total(strategy_1, strategy_2)
+
+# Play each strategy against itself
+for strategy in STRATEGIES_LIST:
+    play_game_and_add_to_total(strategy, strategy)
+
+# Sort strategies by ascending score
+sorted_scores = sorted(
+    TOTAL_SCORES.items(),
+    key=lambda x: TOTAL_SCORES[x[0]],
+    reverse=True
+)
+
+# Print strategies and their scores
+left_align = 15
+right_align = 5
+width = left_align + right_align + 3
+
+print()
+print(f'{"TOTAL SCORES":^{left_align + right_align}}')
+print('-' * width)
+print()
+print(f'{"Strategy":<{left_align}} | {"Score":>{right_align}}')
+print('-' * width)
+
+for strategy, score in sorted_scores:
+    print(f'{strategy:<15} | {score:>5}')

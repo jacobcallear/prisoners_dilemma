@@ -40,7 +40,4 @@ def play_game(strategy_1, strategy_2, rounds=200):
         scores = __play_one_round(strategy_1, strategy_2)
         player_one_score += scores[0]
         player_two_score += scores[1]
-    return {
-        str(strategy_1): player_one_score,
-        str(strategy_2): player_two_score
-    }
+    return (player_one_score, player_two_score)
