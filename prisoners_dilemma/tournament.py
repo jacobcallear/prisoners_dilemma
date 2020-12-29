@@ -1,5 +1,6 @@
 '''Plays each Prisoner's Dilemma strategy against all the others to find the winner.
 '''
+import logging
 
 from collections import defaultdict
 from itertools import combinations
@@ -7,6 +8,8 @@ from itertools import combinations
 from prisoners_dilemma import strategies
 from prisoners_dilemma.play import play_game
 from prisoners_dilemma.print_table import convert_to_table, sort_by_value
+
+logging.basicConfig(level=logging.INFO, format='%(message)s')
 
 TOTAL_SCORES = defaultdict(int)
 

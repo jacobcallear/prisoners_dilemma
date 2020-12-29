@@ -1,6 +1,6 @@
 '''Provides function to play two Prisoner's Dilemma strategies against each other.
 '''
-
+import logging
 
 def __get_payoff(my_move, their_move):
     '''Return payoff for `my_move` if player two plays `their_move`.'''
@@ -54,5 +54,5 @@ def play_game(strategy_1, strategy_2, counter, rounds=200):
         str(strategy_1()): scores[0],
         str(strategy_2()): scores[1]
     }
-    print(scores_dict)
+    logging.debug(scores_dict)
     return scores_dict
