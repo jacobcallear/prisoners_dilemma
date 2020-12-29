@@ -27,6 +27,8 @@ def play_game_and_add_to_total(strategy_1, strategy_2):
     for strategy, score in zip((strategy_1(), strategy_2()), scores):
         TOTAL_SCORES[str(strategy)] += score
 
+# ==============================
+# PLAY
 
 # Play all combinations of strategies
 for strategy_1, strategy_2 in combinations(STRATEGIES_LIST, 2):
@@ -36,6 +38,9 @@ for strategy_1, strategy_2 in combinations(STRATEGIES_LIST, 2):
 for strategy in STRATEGIES_LIST:
     play_game_and_add_to_total(strategy, strategy)
 
+# ==============================
+# PRINT
+
 # Sort strategies by ascending score
 sorted_scores = sorted(
     TOTAL_SCORES.items(),
@@ -43,17 +48,19 @@ sorted_scores = sorted(
     reverse=True
 )
 
-# Print strategies and their scores
+# Print table header
 left_align = 15
 right_align = 5
 width = left_align + right_align + 3
 
-print()
-print(f'{"TOTAL SCORES":^{left_align + right_align}}')
-print('-' * width)
-print()
-print(f'{"Strategy":<{left_align}} | {"Score":>{right_align}}')
-print('-' * width)
+print(f'''
+{'TOTAL SCORES':^{left_align + right_align}}
+{'-' * width}
 
+{'Strategy':<{left_align}} | {'Score':>{right_align}}
+{'-' * width}'''
+)
+
+# Print scores
 for strategy, score in sorted_scores:
     print(f'{strategy:<15} | {score:>5}')
