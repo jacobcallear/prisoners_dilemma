@@ -144,22 +144,31 @@ class TatForTit(Strategy):
 
 class TitForTatPatterns(Strategy):
     '''Tries to respond to patterns in opponent. Otherwise TitForTat.'''
-    def play(self):
-        if self.my_history == []:
-            return 'COOPERATE'
-        # See if defecting every 3, 4, or 5 goes
+
+    def __defect_pattern(self):
+        '''Returns the frequency of defects (0 if defects not in a pattern).'''
+        # See if defecting every 3..9 goes
         consecutive = 0
-        pattern = False
-        for num in range(3, 6):
-            for i in range(len(self.their_history) - 1, 0, -num):
-                if consecutive >= 3:
-                    pattern = True
+        for num in range(3, 10):
+            counter = 0
+            for i in range(len(self.their_history) - 1, -1, -num):
+                if counter > 5:
                     break
+                if consecutive >= 3:
+                    return num
                 if self.their_history[i] == 'DEFECT':
                     consecutive += 1
                 else:
                     consecutive = 0
+                counter += 1
+        return 0
+
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        pattern = self.__defect_pattern()
         if pattern:
-            if (len(self.my_history) + 1) % num == 0:
+            if (len(self.my_history) + 1) % pattern == 0:
+            #if self.their_history[-pattern + 1] == 'DEFECT':
                 return 'DEFECT'
         return self.their_history[-1]
