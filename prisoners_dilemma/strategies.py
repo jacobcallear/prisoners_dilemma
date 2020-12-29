@@ -98,3 +98,29 @@ class Unforgiving(Strategy):
         if self.always_defect:
             return 'DEFECT'
         return 'COOPERATE'
+
+class HelpTheHelpers(Strategy):
+    '''Cooperates with players that reciprocate cooperation.
+    '''
+    def __init__(self):
+        super().__init__()
+        self.count_helps = 0
+        self.count_betrayals = 0
+    
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        # If my last move was cooperate, see if they reciprocated
+        if self.my_history[-1] == 'COOPERATE':
+            if self.their_history[-1] == 'COOPERATE':
+                self.count_helps += 1
+            else:
+                self.count_betrayals += 1
+        # Cooperate if the other player tends to reciprocate
+        if self.count_betrayals == 0:
+            return 'COOPERATE'
+        if self.count_helps == 0:
+            return 'DEFECT'
+        if self.count_helps / self.count_betrayals > 0.6:
+            return 'COOPERATE'
+        return 'DEFECT'

@@ -17,7 +17,8 @@ STRATEGIES_LIST = [
     strategies.TitForTat,
     strategies.TitForTwoTats,
     strategies.Random,
-    strategies.Unforgiving
+    strategies.Unforgiving,
+    strategies.HelpTheHelpers
 ]
 
 # ==============================
