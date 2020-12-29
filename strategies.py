@@ -1,6 +1,8 @@
 '''Defines strategies for Prisoner's Dilemma.
 '''
 
+from random import choice
+
 
 class Strategy:
     '''Parent class for each strategy. Keeps track of both player's history.
@@ -74,3 +76,10 @@ class SneakyTitForTat(Strategy):
         if self.my_history[-2:] == ['COOPERATE', 'COOPERATE']:
             return 'DEFECT'
         return 'COOPERATE'
+
+
+class Random(Strategy):
+    '''Randomly cooperates / defects.'''
+    @staticmethod
+    def play():
+        return choice(['COOPERATE', 'DEFECT'])
