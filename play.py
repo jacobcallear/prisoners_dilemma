@@ -31,7 +31,7 @@ def __play_one_round(strategy_1, strategy_2):
     )
 
 
-def play_game(strategy_1, strategy_2, rounds=200):
+def __play_game(strategy_1, strategy_2, rounds=200):
     '''Plays n rounds of Prisoner's Dilemma and returns scores for each strategy.
     '''
     player_one_score = 0
@@ -41,3 +41,18 @@ def play_game(strategy_1, strategy_2, rounds=200):
         player_one_score += scores[0]
         player_two_score += scores[1]
     return (player_one_score, player_two_score)
+
+
+def play_game(strategy_1, strategy_2, counter, rounds=200):
+    '''Play strategy 1 against strategy 2. Print scores and add to total.'''
+    scores = __play_game(strategy_1(), strategy_2(), rounds=rounds)
+    # Add scores to totals in `total_defaultdict`
+    for strategy, score in zip((strategy_1(), strategy_2()), scores):
+        counter[str(strategy)] += score
+    # Print and return payoffs
+    scores_dict = {
+        str(strategy_1()): scores[0],
+        str(strategy_2()): scores[1]
+    }
+    print(scores_dict)
+    return scores_dict

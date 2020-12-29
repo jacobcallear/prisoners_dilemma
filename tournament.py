@@ -6,6 +6,7 @@ from itertools import combinations
 
 import strategies
 from play import play_game
+from print_table import convert_to_table, sort_by_value
 
 TOTAL_SCORES = defaultdict(int)
 
@@ -19,49 +20,19 @@ STRATEGIES_LIST = [
     strategies.Unforgiving
 ]
 
-
-def play_game_and_add_to_total(strategy_1, strategy_2):
-    '''Play strategy 1 against strategy 2. Print scores and add to total.'''
-    scores = play_game(strategy_1(), strategy_2())
-    print(f'{str(strategy_1())}: {scores[0]}, '
-          f'{str(strategy_2())}: {scores[1]}')
-    for strategy, score in zip((strategy_1(), strategy_2()), scores):
-        TOTAL_SCORES[str(strategy)] += score
-
 # ==============================
 # PLAY
 
 # Play all combinations of strategies
 for strategy_1, strategy_2 in combinations(STRATEGIES_LIST, 2):
-    play_game_and_add_to_total(strategy_1, strategy_2)
+    play_game(strategy_1, strategy_2, counter=TOTAL_SCORES)
 
 # Play each strategy against itself
 for strategy in STRATEGIES_LIST:
-    play_game_and_add_to_total(strategy, strategy)
+    play_game(strategy, strategy, counter=TOTAL_SCORES)
 
 # ==============================
 # PRINT
 
-# Sort strategies by ascending score
-sorted_scores = sorted(
-    TOTAL_SCORES.items(),
-    key=lambda x: TOTAL_SCORES[x[0]],
-    reverse=True
-)
-
-# Print table header
-left_align = 15
-right_align = 5
-width = left_align + right_align + 3
-
-print(f'''
-{'TOTAL SCORES':^{left_align + right_align}}
-{'-' * width}
-
-{'Strategy':<{left_align}} | {'Score':>{right_align}}
-{'-' * width}'''
-)
-
-# Print scores
-for strategy, score in sorted_scores:
-    print(f'{strategy:<15} | {score:>5}')
+sorted_scores = sort_by_value(TOTAL_SCORES)
+print(convert_to_table(sorted_scores, heading_1='Strategy', heading_2='Score'))
