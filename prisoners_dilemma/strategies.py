@@ -221,3 +221,83 @@ class GoByMajority(Strategy):
         if self.cooperate_count > self.defect_count:
             return 'COOPERATE'
         return 'DEFECT'
+
+
+class TwoHitsForOne(Strategy):
+    '''Cooperates if opponent cooperates. Defects twice if opponent defects.'''
+    def __init__(self):
+        super().__init__()
+        self.one_more_defect = False
+
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        if self.their_history[-1] == 'DEFECT':
+            self.one_more_defect = True
+            return 'DEFECT'
+        if self.one_more_defect:
+            return 'DEFECT'
+        return 'COOPERATE'
+
+
+class MostlyTitForTat(Strategy):
+    '''80% tit for tat; 20% tat for tit.'''
+    def play(self):
+        probability = 0.8
+        if self.my_history == []:
+            return 'COOPERATE'
+        if self.their_history[-1] == 'COOPERATE':
+            if random() < probability:
+                return 'COOPERATE'
+            return 'DEFECT'
+        if random() < probability:
+            return 'DEFECT'
+        return 'COOPERATE'
+
+
+class AlternateDefect(Strategy):
+    '''Alternate 'Defect'/'Cooperate'.'''
+    def play(self):
+        if self.my_history == []:
+            return 'DEFECT'
+        if self.my_history[-1] == 'DEFECT':
+            return 'COOPERATE'
+        return 'DEFECT'
+
+
+class AlternateCooperate(Strategy):
+    '''Alternate 'Cooperate'/'Defect'.'''
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        if self.my_history[-1] == 'COOPERATE':
+            return 'DEFECT'
+        return 'COOPERATE'
+
+
+class TitForTatWithPokes(Strategy):
+    '''Tit for tat, but defects every 10 moves.'''
+    def __init__(self):
+        super().__init__()
+        self.counter = 0
+    def play(self):
+        self.counter += 1
+        if self.counter == 1:
+            return 'COOPERATE'
+        if self.counter == 10:
+            self.counter = 0
+            return 'DEFECT'
+        return self.their_history[-1]
+
+
+class ThreeInARow(Strategy):
+    '''Three cooperates followed by a defection.'''
+    def __init__(self):
+        super().__init__()
+        self.counter = 0
+    def play(self):
+        self.counter += 1
+        if self.counter <= 3:
+            return 'COOPERATE'
+        self.counter = 0
+        return 'DEFECT'

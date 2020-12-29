@@ -20,6 +20,12 @@ STRATEGIES_LIST = [
     strategies.Equality,
     strategies.ForgivingTitForTat,
     strategies.GoByMajority,
+    strategies.TwoHitsForOne,
+    strategies.MostlyTitForTat,
+    strategies.AlternateCooperate,
+    strategies.AlternateDefect,
+    strategies.TitForTatWithPokes,
+    strategies.ThreeInARow,
     # These four strategies are always the worst, well below the others
     strategies.AlwaysCooperate,
     strategies.AlwaysDefect,

@@ -19,49 +19,31 @@ with the following payoffs:
 
 ## Results
 
-With all strategies in the tournament:
-
 | Strategy             | Score |
 | -------------------- | ----- |
-| HelpTheHelpers       |  8078 |
-| Unforgiving          |  7972 |
-| TitForTat            |  7725 |
-| TitForTatPatterns    |  7710 |
-| GoByMajority         |  7594 |
-| ForgivingTitForTat   |  7568 |
-| SneakyTitForTat      |  7407 |
-| TitForTwoTats        |  7339 |
-| Equality             |  7237 |
-| AlwaysCooperate      |  6732 |
-| Random               |  6072 |
-| TatForTit            |  5731 |
-| AlwaysDefect         |  5444 |
-
-With the worst four strategies removed, the results are very different:
-
-| Strategy             | Score |
-| -------------------- | ----- |
-| TitForTat            |  5999 |
-| TitForTatPatterns    |  5999 |
-| ForgivingTitForTat   |  5999 |
-| GoByMajority         |  5900 |
-| Equality             |  5801 |
-| TitForTwoTats        |  5799 |
-| HelpTheHelpers       |  5799 |
-| Unforgiving          |  5607 |
-| SneakyTitForTat      |  5564 |
+| TwoHitsForOne        | 10657 |
+| Unforgiving          | 10655 |
+| TitForTatPatterns    | 10518 |
+| GoByMajority         | 10459 |
+| TitForTat            | 10404 |
+| HelpTheHelpers       | 10277 |
+| ForgivingTitForTat   | 10268 |
+| Equality             |  9757 |
+| SneakyTitForTat      |  9743 |
+| TitForTwoTats        |  9723 |
+| TitForTatWithPokes   |  9344 |
+| AlternateCooperate   |  8953 |
+| AlwaysCooperate      |  8910 |
+| MostlyTitForTat      |  8807 |
+| Random               |  8584 |
+| AlternateDefect      |  8550 |
+| ThreeInARow          |  7726 |
+| AlwaysDefect         |  7724 |
+| TatForTit            |  7502 |
 
 ## Winning strategies
 
 The tournament can be rerun repeatedly, dropping the lowest scoring strategy,
 until all strategies have the same high score. This always results in the same
-five winners which cooperate in every round of every game:
-
-- `TitForTat`
-- `TitForTatPatterns`
-- `Equality`
-- `ForgivingTitForTat`
-- `GoByMajority`
-
-`TitForTat` has the fewest lines of code of the winners, and so is declared th
-winner (so far).
+10 winners which cooperate in every round of every game. `TitForTat` achieves
+this with the fewest lines of code in `tournament_sudden_death.py`.
