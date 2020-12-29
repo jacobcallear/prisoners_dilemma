@@ -17,6 +17,8 @@ STRATEGIES_LIST = [
     strategies.TitForTatPatterns,
     strategies.HelpTheHelpers,
     strategies.Unforgiving,
+    strategies.Equality,
+    strategies.ForgivingTitForTat,
     # These four strategies are always the worst, well below the others
     strategies.AlwaysCooperate,
     strategies.AlwaysDefect,

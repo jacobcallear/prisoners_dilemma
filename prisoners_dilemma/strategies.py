@@ -1,7 +1,7 @@
 '''Defines strategies for Prisoner's Dilemma.
 '''
 
-from random import choice
+from random import choice, random
 
 
 class Strategy:
@@ -174,3 +174,31 @@ class TitForTatPatterns(Strategy):
             if (len(self.my_history) + 1) % pattern == 0:
                 return 'DEFECT'
         return self.their_history[-1]
+
+
+class Equality(Strategy):
+    '''Cooperates if both players had the same move; otherwise defects.'''
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        if self.my_history[-1] == self.their_history[-1]:
+            return 'COOPERATE'
+        return 'DEFECT'
+
+
+class ForgivingTitForTat(Strategy):
+    '''Always cooperates when opponent cooperates. Sometimes forgives defection.
+    '''
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        if self.their_history[-1] == 'COOPERATE':
+            return 'COOPERATE'
+        if self.my_history[-1] == 'COOPERATE':
+            if random() >= 0.124:
+                return 'DEFECT'
+            return 'COOPERATE'
+        if self.my_history[-1] == 'DEFECT':
+            if random() >= 0.25:
+                return 'DEFECT'
+            return 'COOPERATE'

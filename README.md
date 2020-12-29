@@ -23,24 +23,28 @@ With all strategies in the tournament:
 
 | Strategy             | Score |
 | -------------------- | ----- |
-| HelpTheHelpers       |  6391 |
-| Unforgiving          |  6120 |
-| TitForTatPatterns    |  5926 |
-| TitForTat            |  5913 |
-| SneakyTitForTat      |  5896 |
-| TitForTwoTats        |  5534 |
-| AlwaysCooperate      |  4911 |
-| Random               |  4424 |
-| AlwaysDefect         |  4232 |
-| TatForTit            |  4204 |
+| HelpTheHelpers       |  7595 |
+| Unforgiving          |  7420 |
+| TitForTatPatterns    |  7140 |
+| TitForTat            |  7116 |
+| ForgivingTitForTat   |  7013 |
+| SneakyTitForTat      |  6911 |
+| TitForTwoTats        |  6756 |
+| Equality             |  6625 |
+| AlwaysCooperate      |  6105 |
+| TatForTit            |  5312 |
+| Random               |  5304 |
+| AlwaysDefect         |  5228 |
 
 With the worst four strategies removed, the results are very different:
 
 | Strategy             | Score |
 | -------------------- | ----- |
-| TitForTat            |  4199 |
-| TitForTatPatterns    |  4199 |
-| SneakyTitForTat      |  4064 |
-| TitForTwoTats        |  3999 |
-| HelpTheHelpers       |  3999 |
-| Unforgiving          |  3807 |
+| TitForTat            |  5399 |
+| TitForTatPatterns    |  5399 |
+| ForgivingTitForTat   |  5399 |
+| Equality             |  5201 |
+| TitForTwoTats        |  5199 |
+| HelpTheHelpers       |  5199 |
+| SneakyTitForTat      |  5064 |
+| Unforgiving          |  5007 |
