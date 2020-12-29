@@ -11,16 +11,17 @@ from print_table import convert_to_table, sort_by_value
 TOTAL_SCORES = defaultdict(int)
 
 STRATEGIES_LIST = [
-    strategies.AlwaysCooperate,
-    strategies.AlwaysDefect,
     strategies.SneakyTitForTat,
     strategies.TitForTat,
     strategies.TitForTwoTats,
-    strategies.Random,
-    strategies.Unforgiving,
+    strategies.TitForTatPatterns,
     strategies.HelpTheHelpers,
-    strategies.TatForTit,
-    strategies.TitForTatPatterns
+    strategies.Unforgiving,
+    # These four strategies are always the worst, well below the others
+    strategies.AlwaysCooperate,
+    strategies.AlwaysDefect,
+    strategies.Random,
+    strategies.TatForTit
 ]
 
 # ==============================
