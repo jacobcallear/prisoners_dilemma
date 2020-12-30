@@ -301,3 +301,38 @@ class ThreeInARow(Strategy):
             return 'COOPERATE'
         self.counter = 0
         return 'DEFECT'
+
+
+class AdaptiveTitForTat(Strategy):
+    '''Tries to model likelihood of opponent cooperating.'''
+    def __init__(self):
+        super().__init__()
+        self.should_cooperate = 0.5
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        # Calculate likelihood of opponent cooperating
+        if self.their_history[-1] == 'COOPERATE':
+            self.should_cooperate += 0.5 * (1 - self.should_cooperate)
+        else:
+            self.should_cooperate += 0.5 * (0 - self.should_cooperate)
+        # Cooperate or defect
+        if self.should_cooperate >= 0.5:
+            return 'COOPERATE'
+        return 'DEFECT'
+
+
+class UnforgivingTitForTat(Strategy):
+    '''Tit for Tat, but switches to all 'DEFECT' if opponent defects > 5 times.
+    '''
+    def __init__(self):
+        super().__init__()
+        self.total_betrayals = 0
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        if self.their_history[-1] == 'DEFECT':
+            self.total_betrayals += 1
+        if self.total_betrayals > 5:
+            return 'DEFECT'
+        return self.their_history[-1]

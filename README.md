@@ -21,25 +21,27 @@ with the following payoffs:
 
 | Strategy             | Score |
 | -------------------- | ----- |
-| TwoHitsForOne        | 10657 |
-| Unforgiving          | 10655 |
-| TitForTatPatterns    | 10518 |
-| GoByMajority         | 10459 |
-| TitForTat            | 10404 |
-| HelpTheHelpers       | 10277 |
-| ForgivingTitForTat   | 10268 |
-| Equality             |  9757 |
-| SneakyTitForTat      |  9743 |
-| TitForTwoTats        |  9723 |
-| TitForTatWithPokes   |  9344 |
-| AlternateCooperate   |  8953 |
-| AlwaysCooperate      |  8910 |
-| MostlyTitForTat      |  8807 |
-| Random               |  8584 |
-| AlternateDefect      |  8550 |
-| ThreeInARow          |  7726 |
-| AlwaysDefect         |  7724 |
-| TatForTit            |  7502 |
+| UnforgivingTitForTat | 12804 |
+| TwoHitsForOne        | 12513 |
+| Unforgiving          | 12435 |
+| GoByMajority         | 12065 |
+| TitForTatPatterns    | 12050 |
+| TitForTat            | 12034 |
+| HelpTheHelpers       | 12025 |
+| AdaptiveTitForTat    | 12023 |
+| ForgivingTitForTat   | 11845 |
+| Equality             | 11475 |
+| SneakyTitForTat      | 11317 |
+| TitForTwoTats        | 11240 |
+| AlwaysCooperate      | 10578 |
+| TitForTatWithPokes   | 10459 |
+| AlternateCooperate   | 10095 |
+| MostlyTitForTat      | 10042 |
+| AlternateDefect      |  9710 |
+| ThreeInARow          |  9519 |
+| Random               |  8952 |
+| AlwaysDefect         |  8680 |
+| TatForTit            |  8582 |
 
 ## Winning strategies
 
