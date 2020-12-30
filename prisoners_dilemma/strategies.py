@@ -22,13 +22,9 @@ class Strategy:
         return self.__class__.__name__
 
 
-class TitForTat(Strategy):
-    '''Nice, forgiving, punishing.'''
-    def play(self):
-        if self.my_history == []:
-            return 'COOPERATE'
-        return self.their_history[-1]
-
+# ==================================================
+# Simple strategies that ignore the opponent's behaviour
+# ==================================================
 
 class AlwaysDefect(Strategy):
     '''Nasty.'''
@@ -42,6 +38,60 @@ class AlwaysCooperate(Strategy):
     @staticmethod
     def play():
         return 'COOPERATE'
+
+
+class Random(Strategy):
+    '''Randomly cooperates / defects.'''
+    @staticmethod
+    def play():
+        return choice(['COOPERATE', 'DEFECT'])
+
+
+class AlternateDefect(Strategy):
+    '''Alternate 'Defect'/'Cooperate'.'''
+    def play(self):
+        if self.my_history == []:
+            return 'DEFECT'
+        if self.my_history[-1] == 'DEFECT':
+            return 'COOPERATE'
+        return 'DEFECT'
+
+
+class AlternateCooperate(Strategy):
+    '''Alternate 'Cooperate'/'Defect'.'''
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        if self.my_history[-1] == 'COOPERATE':
+            return 'DEFECT'
+        return 'COOPERATE'
+
+
+class ThreeInARow(Strategy):
+    '''Three cooperates followed by a defection.'''
+    def __init__(self):
+        super().__init__()
+        self.counter = 0
+
+    def play(self):
+        self.counter += 1
+        if self.counter <= 3:
+            return 'COOPERATE'
+        self.counter = 0
+        return 'DEFECT'
+
+
+# ==================================================
+# Tit for Tat variants (copy opponent's behaviour)
+# ==================================================
+
+
+class TitForTat(Strategy):
+    '''Nice, forgiving, punishing.'''
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        return self.their_history[-1]
 
 
 class TitForTwoTats(Strategy):
@@ -78,13 +128,6 @@ class SneakyTitForTat(Strategy):
         return 'COOPERATE'
 
 
-class Random(Strategy):
-    '''Randomly cooperates / defects.'''
-    @staticmethod
-    def play():
-        return choice(['COOPERATE', 'DEFECT'])
-
-
 class Unforgiving(Strategy):
     '''Cooperates first move. Defects forever if opponent defects.'''
     def __init__(self):
@@ -99,36 +142,6 @@ class Unforgiving(Strategy):
         if self.always_defect:
             return 'DEFECT'
         return 'COOPERATE'
-
-
-class HelpTheHelpers(Strategy):
-    '''Cooperates with players that reciprocate cooperation.
-    '''
-    def __init__(self):
-        super().__init__()
-        self.count_helps = 0
-        self.count_betrayals = 0
-
-    def __increment_betrayals(self):
-        '''Record if cooperations are reciprocated.'''
-        if len(self.my_history) < 2:
-            return
-        if self.my_history[-2] == 'COOPERATE':
-            if self.their_history[-1] == 'COOPERATE':
-                self.count_helps += 1
-            else:
-                self.count_betrayals += 1
-
-    def play(self):
-        self.__increment_betrayals()
-        if len(self.my_history) <= 2:
-            return 'COOPERATE'
-        # Cooperate if the other player tends to reciprocate
-        if self.count_betrayals == 0:
-            return 'COOPERATE'
-        if self.count_helps / self.count_betrayals > 0.6:
-            return 'COOPERATE'
-        return 'DEFECT'
 
 
 class TatForTit(Strategy):
@@ -176,16 +189,6 @@ class TitForTatPatterns(Strategy):
         return self.their_history[-1]
 
 
-class Equality(Strategy):
-    '''Cooperates if both players had the same move; otherwise defects.'''
-    def play(self):
-        if self.my_history == []:
-            return 'COOPERATE'
-        if self.my_history[-1] == self.their_history[-1]:
-            return 'COOPERATE'
-        return 'DEFECT'
-
-
 class ForgivingTitForTat(Strategy):
     '''Always cooperates when opponent cooperates. Sometimes forgives defection.
     '''
@@ -201,26 +204,6 @@ class ForgivingTitForTat(Strategy):
         if random() >= 0.25:
             return 'DEFECT'
         return 'COOPERATE'
-
-
-class GoByMajority(Strategy):
-    '''Cooperates if opponent mostly cooperates. Otherwise defects.
-    '''
-    def __init__(self):
-        super().__init__()
-        self.cooperate_count = 0
-        self.defect_count = 0
-
-    def play(self):
-        if self.my_history == []:
-            return 'COOPERATE'
-        if self.their_history[-1] == 'COOPERATE':
-            self.cooperate_count += 1
-        else:
-            self.defect_count += 1
-        if self.cooperate_count > self.defect_count:
-            return 'COOPERATE'
-        return 'DEFECT'
 
 
 class TwoHitsForOne(Strategy):
@@ -255,26 +238,6 @@ class MostlyTitForTat(Strategy):
         return 'COOPERATE'
 
 
-class AlternateDefect(Strategy):
-    '''Alternate 'Defect'/'Cooperate'.'''
-    def play(self):
-        if self.my_history == []:
-            return 'DEFECT'
-        if self.my_history[-1] == 'DEFECT':
-            return 'COOPERATE'
-        return 'DEFECT'
-
-
-class AlternateCooperate(Strategy):
-    '''Alternate 'Cooperate'/'Defect'.'''
-    def play(self):
-        if self.my_history == []:
-            return 'COOPERATE'
-        if self.my_history[-1] == 'COOPERATE':
-            return 'DEFECT'
-        return 'COOPERATE'
-
-
 class TitForTatWithPokes(Strategy):
     '''Tit for tat, but defects every 10 moves.'''
     def __init__(self):
@@ -289,40 +252,6 @@ class TitForTatWithPokes(Strategy):
             self.counter = 0
             return 'DEFECT'
         return self.their_history[-1]
-
-
-class ThreeInARow(Strategy):
-    '''Three cooperates followed by a defection.'''
-    def __init__(self):
-        super().__init__()
-        self.counter = 0
-
-    def play(self):
-        self.counter += 1
-        if self.counter <= 3:
-            return 'COOPERATE'
-        self.counter = 0
-        return 'DEFECT'
-
-
-class AdaptiveTitForTat(Strategy):
-    '''Tries to model likelihood of opponent cooperating.'''
-    def __init__(self):
-        super().__init__()
-        self.should_cooperate = 0.5
-
-    def play(self):
-        if self.my_history == []:
-            return 'COOPERATE'
-        # Calculate likelihood of opponent cooperating
-        if self.their_history[-1] == 'COOPERATE':
-            self.should_cooperate += 0.5 * (1 - self.should_cooperate)
-        else:
-            self.should_cooperate += 0.5 * (0 - self.should_cooperate)
-        # Cooperate or defect
-        if self.should_cooperate >= 0.5:
-            return 'COOPERATE'
-        return 'DEFECT'
 
 
 class UnforgivingTitForTat(Strategy):
@@ -340,3 +269,87 @@ class UnforgivingTitForTat(Strategy):
         if self.total_betrayals > 5:
             return 'DEFECT'
         return self.their_history[-1]
+
+
+# ==================================================
+# Other strategies
+# ==================================================
+
+class HelpTheHelpers(Strategy):
+    '''Cooperates with players that reciprocate cooperation.
+    '''
+    def __init__(self):
+        super().__init__()
+        self.count_helps = 0
+        self.count_betrayals = 0
+
+    def __increment_betrayals(self):
+        '''Record if cooperations are reciprocated.'''
+        if len(self.my_history) < 2:
+            return
+        if self.my_history[-2] == 'COOPERATE':
+            if self.their_history[-1] == 'COOPERATE':
+                self.count_helps += 1
+            else:
+                self.count_betrayals += 1
+
+    def play(self):
+        self.__increment_betrayals()
+        if len(self.my_history) <= 2:
+            return 'COOPERATE'
+        # Cooperate if the other player tends to reciprocate
+        if self.count_betrayals == 0:
+            return 'COOPERATE'
+        if self.count_helps / self.count_betrayals > 0.6:
+            return 'COOPERATE'
+        return 'DEFECT'
+
+
+class Equality(Strategy):
+    '''Cooperates if both players had the same move; otherwise defects.'''
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        if self.my_history[-1] == self.their_history[-1]:
+            return 'COOPERATE'
+        return 'DEFECT'
+
+
+class GoByMajority(Strategy):
+    '''Cooperates if opponent mostly cooperates. Otherwise defects.
+    '''
+    def __init__(self):
+        super().__init__()
+        self.cooperate_count = 0
+        self.defect_count = 0
+
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        if self.their_history[-1] == 'COOPERATE':
+            self.cooperate_count += 1
+        else:
+            self.defect_count += 1
+        if self.cooperate_count > self.defect_count:
+            return 'COOPERATE'
+        return 'DEFECT'
+
+
+class Modeler(Strategy):
+    '''Tries to model likelihood of opponent cooperating.'''
+    def __init__(self):
+        super().__init__()
+        self.should_cooperate = 0.5
+
+    def play(self):
+        if self.my_history == []:
+            return 'COOPERATE'
+        # Calculate likelihood of opponent cooperating
+        if self.their_history[-1] == 'COOPERATE':
+            self.should_cooperate += 0.5 * (1 - self.should_cooperate)
+        else:
+            self.should_cooperate += 0.5 * (0 - self.should_cooperate)
+        # Cooperate or defect
+        if self.should_cooperate >= 0.5:
+            return 'COOPERATE'
+        return 'DEFECT'

@@ -26,7 +26,7 @@ STRATEGIES_LIST = [
     strategies.AlternateDefect,
     strategies.TitForTatWithPokes,
     strategies.ThreeInARow,
-    strategies.AdaptiveTitForTat,
+    strategies.Modeler,
     strategies.UnforgivingTitForTat,
     # These four strategies are always the worst, well below the others
     strategies.AlwaysCooperate,
