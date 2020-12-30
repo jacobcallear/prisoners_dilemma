@@ -2,6 +2,7 @@
 '''
 import logging
 
+
 def __get_payoff(my_move, their_move):
     '''Return payoff for `my_move` if player two plays `their_move`.'''
     PAYOFFS = {

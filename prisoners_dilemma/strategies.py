@@ -198,10 +198,10 @@ class ForgivingTitForTat(Strategy):
             if random() >= 0.124:
                 return 'DEFECT'
             return 'COOPERATE'
-        if self.my_history[-1] == 'DEFECT':
-            if random() >= 0.25:
-                return 'DEFECT'
-            return 'COOPERATE'
+        if random() >= 0.25:
+            return 'DEFECT'
+        return 'COOPERATE'
+
 
 class GoByMajority(Strategy):
     '''Cooperates if opponent mostly cooperates. Otherwise defects.
@@ -280,6 +280,7 @@ class TitForTatWithPokes(Strategy):
     def __init__(self):
         super().__init__()
         self.counter = 0
+
     def play(self):
         self.counter += 1
         if self.counter == 1:
@@ -295,6 +296,7 @@ class ThreeInARow(Strategy):
     def __init__(self):
         super().__init__()
         self.counter = 0
+
     def play(self):
         self.counter += 1
         if self.counter <= 3:
@@ -308,6 +310,7 @@ class AdaptiveTitForTat(Strategy):
     def __init__(self):
         super().__init__()
         self.should_cooperate = 0.5
+
     def play(self):
         if self.my_history == []:
             return 'COOPERATE'
@@ -328,6 +331,7 @@ class UnforgivingTitForTat(Strategy):
     def __init__(self):
         super().__init__()
         self.total_betrayals = 0
+
     def play(self):
         if self.my_history == []:
             return 'COOPERATE'

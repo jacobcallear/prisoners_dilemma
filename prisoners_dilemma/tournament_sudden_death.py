@@ -1,14 +1,14 @@
 '''Drop lowest scoring strategy in successive tournaments to find the winner.
 '''
 import logging
-logging.basicConfig(level=logging.WARNING)
 from collections import defaultdict
 from itertools import combinations
 from random import choice
 
 from prisoners_dilemma import strategies
 from prisoners_dilemma.play import play_game
-from prisoners_dilemma.print_table import convert_to_table, sort_by_value
+
+logging.basicConfig(level=logging.WARNING)
 
 STRATEGIES_LIST = [
     strategies.SneakyTitForTat,
