@@ -20,7 +20,7 @@ with the following payoffs:
 ## Results
 
 | Strategy             | Score |
-| -------------------- | ----- |
+| -------------------- | ----: |
 | UnforgivingTitForTat | 12761 |
 | TwoHitsForOne        | 12435 |
 | Unforgiving          | 12393 |
