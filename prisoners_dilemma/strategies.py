@@ -208,48 +208,36 @@ class ForgivingTitForTat(Strategy):
 
 class TwoHitsForOne(Strategy):
     '''Cooperates if opponent cooperates. Defects twice if opponent defects.'''
-    def __init__(self):
-        super().__init__()
-        self.one_more_defect = False
-
     def play(self):
         if self.my_history == []:
             return 'COOPERATE'
-        if self.their_history[-1] == 'DEFECT':
-            self.one_more_defect = True
-            return 'DEFECT'
-        if self.one_more_defect:
+        if 'DEFECT' in self.their_history[-2:]:
             return 'DEFECT'
         return 'COOPERATE'
 
 
 class MostlyTitForTat(Strategy):
     '''80% tit for tat; 20% tat for tit.'''
+    opposite = {
+            'COOPERATE': 'DEFECT',
+            'DEFECT': 'COOPERATE'
+        }
+
     def play(self):
         probability = 0.8
         if self.my_history == []:
             return 'COOPERATE'
-        if self.their_history[-1] == 'COOPERATE':
-            if random() < probability:
-                return 'COOPERATE'
-            return 'DEFECT'
         if random() < probability:
-            return 'DEFECT'
-        return 'COOPERATE'
+            return self.their_history[-1]
+        return self.opposite[self.their_history[-1]]
 
 
 class TitForTatWithPokes(Strategy):
     '''Tit for tat, but defects every 10 moves.'''
-    def __init__(self):
-        super().__init__()
-        self.counter = 0
-
     def play(self):
-        self.counter += 1
-        if self.counter == 1:
+        if self.my_history == []:
             return 'COOPERATE'
-        if self.counter == 10:
-            self.counter = 0
+        if len(self.my_history) % 10 == 0:
             return 'DEFECT'
         return self.their_history[-1]
 
@@ -298,9 +286,7 @@ class HelpTheHelpers(Strategy):
         if len(self.my_history) <= 2:
             return 'COOPERATE'
         # Cooperate if the other player tends to reciprocate
-        if self.count_betrayals == 0:
-            return 'COOPERATE'
-        if self.count_helps / self.count_betrayals > 0.6:
+        if self.count_helps > self.count_betrayals * 1.5:
             return 'COOPERATE'
         return 'DEFECT'
 
