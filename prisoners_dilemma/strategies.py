@@ -69,16 +69,10 @@ class AlternateCooperate(Strategy):
 
 class ThreeInARow(Strategy):
     '''Three cooperates followed by a defection.'''
-    def __init__(self):
-        super().__init__()
-        self.counter = 0
-
     def play(self):
-        self.counter += 1
-        if self.counter <= 3:
-            return 'COOPERATE'
-        self.counter = 0
-        return 'DEFECT'
+        if len(self.my_history) % 4 == 3:
+            return 'DEFECT'
+        return 'COOPERATE'
 
 
 # ==================================================
@@ -197,13 +191,15 @@ class ForgivingTitForTat(Strategy):
             return 'COOPERATE'
         if self.their_history[-1] == 'COOPERATE':
             return 'COOPERATE'
+        # More likely to forgive defection if I just defected
         if self.my_history[-1] == 'COOPERATE':
-            if random() >= 0.124:
-                return 'DEFECT'
+            probability_cooperating = 0.125
+        else:
+            probability_cooperating = 0.25
+        # Usually defect in response to a defection, but not always
+        if probability_cooperating > random():
             return 'COOPERATE'
-        if random() >= 0.25:
-            return 'DEFECT'
-        return 'COOPERATE'
+        return 'DEFECT'
 
 
 class TwoHitsForOne(Strategy):
@@ -219,9 +215,9 @@ class TwoHitsForOne(Strategy):
 class MostlyTitForTat(Strategy):
     '''80% tit for tat; 20% tat for tit.'''
     opposite = {
-            'COOPERATE': 'DEFECT',
-            'DEFECT': 'COOPERATE'
-        }
+        'COOPERATE': 'DEFECT',
+        'DEFECT': 'COOPERATE'
+    }
 
     def play(self):
         probability = 0.8
@@ -247,14 +243,14 @@ class UnforgivingTitForTat(Strategy):
     '''
     def __init__(self):
         super().__init__()
-        self.total_betrayals = 0
+        self.count_their_defections = 0
 
     def play(self):
         if self.my_history == []:
             return 'COOPERATE'
         if self.their_history[-1] == 'DEFECT':
-            self.total_betrayals += 1
-        if self.total_betrayals > 5:
+            self.count_their_defections += 1
+        if self.count_their_defections > 5:
             return 'DEFECT'
         return self.their_history[-1]
 
@@ -332,9 +328,10 @@ class Modeler(Strategy):
             return 'COOPERATE'
         # Calculate likelihood of opponent cooperating
         if self.their_history[-1] == 'COOPERATE':
-            self.should_cooperate += 0.5 * (1 - self.should_cooperate)
+            parameter = 1
         else:
-            self.should_cooperate += 0.5 * (0 - self.should_cooperate)
+            parameter = 0
+        self.should_cooperate += 0.5 * (parameter - self.should_cooperate)
         # Cooperate or defect
         if self.should_cooperate >= 0.5:
             return 'COOPERATE'
