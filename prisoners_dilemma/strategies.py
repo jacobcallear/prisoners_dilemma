@@ -6,18 +6,20 @@ from random import choice, random
 
 
 class Strategy(metaclass=ABCMeta):
-    '''Parent class for each strategy. Keeps track of both player's history.
+    """Parent class for each strategy. Keeps track of both player's history.
 
     Subclasses must add a `play` method that returns 'COOPERATE' or 'DEFECT'.
-    '''
+    """
 
     def __init__(self):
         self.my_history = []
         self.their_history = []
 
     def __repr__(self):
-        return f'{self.__class__.__name__}(my_history={self.my_history}, '\
-               f'their_history={self.their_history})'
+        return (
+            f'{self.__class__.__name__}(my_history={self.my_history}, '
+            f'their_history={self.their_history})'
+        )
 
     def __str__(self):
         return self.__class__.__name__
@@ -31,8 +33,10 @@ class Strategy(metaclass=ABCMeta):
 # Simple strategies that ignore the opponent's behaviour
 # ==================================================
 
+
 class AlwaysDefect(Strategy):
-    '''Nasty.'''
+    """Nasty."""
+
     @staticmethod
     def play():
         return 'DEFECT'
@@ -40,6 +44,7 @@ class AlwaysDefect(Strategy):
 
 class AlwaysCooperate(Strategy):
     '''Nice.'''
+
     @staticmethod
     def play():
         return 'COOPERATE'
@@ -47,6 +52,7 @@ class AlwaysCooperate(Strategy):
 
 class Random(Strategy):
     '''Randomly cooperates / defects.'''
+
     @staticmethod
     def play():
         return choice(['COOPERATE', 'DEFECT'])
@@ -54,6 +60,7 @@ class Random(Strategy):
 
 class AlternateDefect(Strategy):
     '''Alternate 'Defect'/'Cooperate'.'''
+
     def play(self):
         if self.my_history == []:
             return 'DEFECT'
@@ -64,6 +71,7 @@ class AlternateDefect(Strategy):
 
 class AlternateCooperate(Strategy):
     '''Alternate 'Cooperate'/'Defect'.'''
+
     def play(self):
         if self.my_history == []:
             return 'COOPERATE'
@@ -74,6 +82,7 @@ class AlternateCooperate(Strategy):
 
 class ThreeInARow(Strategy):
     '''Three cooperates followed by a defection.'''
+
     def play(self):
         if len(self.my_history) % 4 == 3:
             return 'DEFECT'
@@ -87,6 +96,7 @@ class ThreeInARow(Strategy):
 
 class TitForTat(Strategy):
     '''Nice, forgiving, punishing.'''
+
     def play(self):
         if self.my_history == []:
             return 'COOPERATE'
@@ -95,6 +105,7 @@ class TitForTat(Strategy):
 
 class TitForTwoTats(Strategy):
     '''Nice, forgiving, less punishing than TitForTat.'''
+
     def play(self):
         if len(self.my_history) <= 2:
             return 'COOPERATE'
@@ -104,12 +115,13 @@ class TitForTwoTats(Strategy):
 
 
 class SneakyTitForTat(Strategy):
-    '''Strategy to exploit TitForTwoTats.
+    """Strategy to exploit TitForTwoTats.
 
     - Defect first move
     - Play tit for tat if opponent defects
     - Otherwise defect every third move
-    '''
+    """
+
     def __init__(self):
         super().__init__()
         self.playing_tit_for_tat = False
@@ -129,6 +141,7 @@ class SneakyTitForTat(Strategy):
 
 class Unforgiving(Strategy):
     '''Cooperates first move. Defects forever if opponent defects.'''
+
     def __init__(self):
         super().__init__()
         self.always_defect = False
@@ -144,8 +157,8 @@ class Unforgiving(Strategy):
 
 
 class TatForTit(Strategy):
-    '''Cooperates with defectors, and defects with cooperators.
-    '''
+    """Cooperates with defectors, and defects with cooperators."""
+
     def play(self):
         if self.my_history == []:
             return 'COOPERATE'
@@ -155,12 +168,10 @@ class TatForTit(Strategy):
 
 
 class TitForTatPatterns(Strategy):
-    '''TitForTat, but defects if it thinks opponent is defecting every n moves.
-    '''
+    """TitForTat, but defects if it thinks opponent is defecting every n moves."""
 
     def __defect_pattern(self):
-        '''Returns *n* if opponent defects every *n* moves; otherwise 0.
-        '''
+        """Returns *n* if opponent defects every *n* moves; otherwise 0."""
         # Look backwards through opponents history in 5 steps of `num`
         # If these 5 steps contain 3 consecutive defects, return `num`
         consecutive = 0
@@ -189,8 +200,8 @@ class TitForTatPatterns(Strategy):
 
 
 class ForgivingTitForTat(Strategy):
-    '''Always cooperates when opponent cooperates. Sometimes forgives defection.
-    '''
+    """Always cooperates when opponent cooperates. Sometimes forgives defection."""
+
     def play(self):
         if self.my_history == []:
             return 'COOPERATE'
@@ -209,6 +220,7 @@ class ForgivingTitForTat(Strategy):
 
 class TwoHitsForOne(Strategy):
     '''Cooperates if opponent cooperates. Defects twice if opponent defects.'''
+
     def play(self):
         if self.my_history == []:
             return 'COOPERATE'
@@ -219,10 +231,8 @@ class TwoHitsForOne(Strategy):
 
 class MostlyTitForTat(Strategy):
     '''80% tit for tat; 20% tat for tit.'''
-    opposite = {
-        'COOPERATE': 'DEFECT',
-        'DEFECT': 'COOPERATE'
-    }
+
+    opposite = {'COOPERATE': 'DEFECT', 'DEFECT': 'COOPERATE'}
 
     def play(self):
         probability = 0.8
@@ -235,6 +245,7 @@ class MostlyTitForTat(Strategy):
 
 class TitForTatWithPokes(Strategy):
     '''Tit for tat, but defects every 10 moves.'''
+
     def play(self):
         if self.my_history == []:
             return 'COOPERATE'
@@ -244,8 +255,8 @@ class TitForTatWithPokes(Strategy):
 
 
 class UnforgivingTitForTat(Strategy):
-    '''Tit for Tat, but switches to all 'DEFECT' if opponent defects > 5 times.
-    '''
+    """Tit for Tat, but switches to all 'DEFECT' if opponent defects > 5 times."""
+
     def __init__(self):
         super().__init__()
         self.count_their_defections = 0
@@ -264,9 +275,10 @@ class UnforgivingTitForTat(Strategy):
 # Other strategies
 # ==================================================
 
+
 class HelpTheHelpers(Strategy):
-    '''Cooperates with players that reciprocate cooperation.
-    '''
+    """Cooperates with players that reciprocate cooperation."""
+
     def __init__(self):
         super().__init__()
         self.count_helps = 0
@@ -294,6 +306,7 @@ class HelpTheHelpers(Strategy):
 
 class Equality(Strategy):
     '''Cooperates if both players had the same move; otherwise defects.'''
+
     def play(self):
         if self.my_history == []:
             return 'COOPERATE'
@@ -303,8 +316,8 @@ class Equality(Strategy):
 
 
 class GoByMajority(Strategy):
-    '''Cooperates if opponent mostly cooperates. Otherwise defects.
-    '''
+    """Cooperates if opponent mostly cooperates. Otherwise defects."""
+
     def __init__(self):
         super().__init__()
         self.cooperate_count = 0
@@ -324,6 +337,7 @@ class GoByMajority(Strategy):
 
 class Modeler(Strategy):
     '''Tries to model likelihood of opponent cooperating.'''
+
     def __init__(self):
         super().__init__()
         self.should_cooperate = 0.5
