@@ -1,10 +1,11 @@
 '''Defines strategies for Prisoner's Dilemma.
 '''
 
+from abc import ABCMeta, abstractmethod
 from random import choice, random
 
 
-class Strategy:
+class Strategy(metaclass=ABCMeta):
     '''Parent class for each strategy. Keeps track of both player's history.
 
     Subclasses must add a `play` method that returns 'COOPERATE' or 'DEFECT'.
@@ -20,6 +21,10 @@ class Strategy:
 
     def __str__(self):
         return self.__class__.__name__
+
+    @abstractmethod
+    def play(self):
+        """Return 'DEFECT' or 'COOPERATE'"""
 
 
 # ==================================================
